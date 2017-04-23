@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6bc79516-dc92-4342-8fb0-df2d75e895ff}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>Backup_FD.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>AHMain</Name>
+    <RootNamespace>AHMain</RootNamespace>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments>D:\10Data\TXDEM\TX0413\Demo031117\Layers\Fil 100 D:\10Data\TXDEM\TX0413\Demo031117\Layers\str D:\10Data\TXDEM\TX0413\Demo031117\HANDBASE</CommandLineArguments>
+    <InterpreterPath />
+    <InterpreterArguments>
+    </InterpreterArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <InterpreterId>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="accumulateflowsonoverlappinglines.py" />
+    <Compile Include="accumulateshapes.py" />
+    <Compile Include="adjointcatchmentprocessing.py" />
+    <Compile Include="adjustflowdirectioninlakes.py" />
+    <Compile Include="adjustflowdirectioninstreams.py" />
+    <Compile Include="adjustflowdirectioninsinks.py" />
+    <Compile Include="adjustnextdownidformainpath.py" />
+    <Compile Include="angleonlines.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ApCalculatePercentileTable.py" />
+    <Compile Include="apconfigtru.py" />
+    <Compile Include="ApExtendLines.py" />
+    <Compile Include="apextractsink.py" />
+    <Compile Include="ApGetFlow.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ApGetTSData2.py" />
+    <Compile Include="ApGetTSData2NewGDB.py" />
+    <Compile Include="ApGetTSValuesKister.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="apiddepressionhierarchy.py" />
+    <Compile Include="ApMergeShapes.py" />
+    <Compile Include="ApMoveRasters.py" />
+    <Compile Include="ApRaindrop.py" />
+    <Compile Include="ApStormNetTrace.py" />
+    <Compile Include="ApTemplate.py" />
+    <Compile Include="ApUniqueIDMakeFC.py" />
+    <Compile Include="ApUniqueIDMakeTable.py" />
+    <Compile Include="apnextid.py" />
+    <Compile Include="ApUniqueIDMgr.py" />
+    <Compile Include="ApUniqueIDMgrWS.py" />
+    <Compile Include="apwrutils.py" />
+    <Compile Include="assigncattypeattribute.py" />
+    <Compile Include="assignhydroid.py" />
+    <Compile Include="assignriverorder.py" />
+    <Compile Include="backup_adjointcatchment.py" />
+    <Compile Include="Backup_CT.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Backup_FD.py" />
+    <Compile Include="Backup_GA.py" />
+    <Compile Include="BackUp_HydroTerrainProcessingTools.py" />
+    <Compile Include="Backup_NB.py" />
+    <Compile Include="backup_NY.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Backup_SW.py" />
+    <Compile Include="Backup_TRU.py" />
+    <Compile Include="BatchWSEToFloodMasterProcess.py" />
+    <Compile Include="BiSection.py" />
+    <Compile Include="blockconfig.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blocklinecleanup.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blockpartitioning.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="buildwalls.py" />
+    <Compile Include="catchmentgriddelineation.py" />
+    <Compile Include="appendcoastalcatchments.py" />
+    <Compile Include="catchmentpolygonprocessing.py" />
+    <Compile Include="characterizecontourpolygons.py" />
+    <Compile Include="combinestreamlinkandsinklink.py" />
+    <Compile Include="ComputeNormalDepth.py" />
+    <Compile Include="ComputeNormalDepthCS.py" />
+    <Compile Include="ComputePFTableQ.py" />
+    <Compile Include="ComputeWSE.py" />
+    <Compile Include="constructdepressionhierarchy.py" />
+    <Compile Include="constructdepressionhierarchyOrg.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="constructmosaicds.py" />
+    <Compile Include="convert3dlinetoraster.py" />
+    <Compile Include="Copy2ProductBeforeBuild_NB.py" />
+    <Compile Include="copyfeaturesinorder.py" />
+    <Compile Include="createdrainagelinestructures.py" />
+    <Compile Include="createglobaldownstreamline.py" />
+    <Compile Include="createinitialgdb.py" />
+    <Compile Include="createinitialqcgdb.py" />
+    <Compile Include="createsinksforpointstructures.py" />
+    <Compile Include="createsnapdata.py" />
+    <Compile Include="definecontourlines.py" />
+    <Compile Include="definecontourpolygons.py" />
+    <Compile Include="DefineTravelTimeRasterFromNHDPlus.py" />
+    <Compile Include="demprocessing.py" />
+    <Compile Include="demprocessingfromfac.py" />
+    <Compile Include="determinepuworkspaces.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="drainagepointprocessingR.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="extendlines.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="extractraster.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fdconstructmosaicds.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fdgetaddressh.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fdgetaddresshM.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fdgettsvaluekisterurlM.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fdgettsvaluekisterurlT.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fdgroupbystats.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fdgroupbystatsM.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fdgroupbystatsTS.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fdtableupdate.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fdtsvalueextract.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fdtsvaluemax.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="fdtsvaluemaxM.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FindIntersectPoints.py" />
+    <Compile Include="flooddepthClean.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="floodds.py" />
+    <Compile Include="flooddsconfig.py" />
+    <Compile Include="flooddsmainhand.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="flooddsmain.py" />
+    <Compile Include="flooddsmainR.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FloodFromStreamWSEPy.py" />
+    <Compile Include="floodhandbase.py" />
+    <Compile Include="floodplainfrom3driverraster.py" />
+    <Compile Include="floodplainfromhand.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="floodplainhand.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="generateflowpath.py" />
+    <Compile Include="getaddresscountbycomidh.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GetDSType.py" />
+    <Compile Include="fdgettsvaluekisterurl.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GetURLHeader.py" />
+    <Compile Include="globaladjconfig.py" />
+    <Compile Include="globaladjointcatchmentcreate.py" />
+    <Compile Include="globalgdbcreateSimple.py" />
+    <Compile Include="globalgdbcreate.py" />
+    <Compile Include="globalnetworkcreate.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="globalpointdelineation.py" />
+    <Compile Include="globalgdbcreateG.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="hydroconfig.py" />
+    <Compile Include="IDOverlappingFeatures.py" />
+    <Compile Include="listgdb.py" />
+    <Compile Include="mainflowpath.py" />
+    <Compile Include="make3dline.py" />
+    <Compile Include="make3dlineSystem.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="mosaicdataset2polygonfc.py" />
+    <Compile Include="mosaicdatasetpolygonupdate.py" />
+    <Compile Include="mosaicdatasettopolygonfc.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Profile3dXLine.py" />
+    <Compile Include="qhexchange.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SelectWSEToProcess.py" />
+    <Compile Include="splitlineusingpoint.py" />
+    <Compile Include="createsinksforlinestructures.py" />
+    <Compile Include="createsinkstructures.py" />
+    <Compile Include="createsyntheticsinks.py" />
+    <Compile Include="demreconditioning.py" />
+    <Compile Include="drainagelineprocessing.py" />
+    <Compile Include="drainagepointprocessing.py" />
+    <Compile Include="fillsinks.py" />
+    <Compile Include="flowaccumulation.py" />
+    <Compile Include="flowdirection.py" />
+    <Compile Include="generatefromtonodeforlines.py" />
+    <Compile Include="hydroparameters.py" />
+    <Compile Include="leveldem.py" />
+    <Compile Include="longestflowpathforadjointcatchments.py" />
+    <Compile Include="SelectByAttribute.py" />
+    <Compile Include="sinkwatersheddelineation.py" />
+    <Compile Include="sinkevaluation.py" />
+    <Compile Include="splitlinebasedondistance.py" />
+    <Compile Include="stormnettrace.py" />
+    <Compile Include="streamconnectivityparameters.py" />
+    <Compile Include="streamdefinition.py" />
+    <Compile Include="streamsegmentation.py" />
+    <Compile Include="findnextdownstreamline.py" />
+    <Compile Include="terrainutils.py" />
+    <Compile Include="traceupstreambyid.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TXGlobalWatershedDelineation.py" />
+    <Compile Include="TXWatershedDelineation.py" />
+    <Compile Include="waterlevelonriver.py" />
+    <Compile Include="watersheddelineation.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AHPyConfig.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\2.7" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>

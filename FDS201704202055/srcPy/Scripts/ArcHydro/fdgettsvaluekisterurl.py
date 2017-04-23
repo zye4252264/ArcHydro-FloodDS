@@ -37,7 +37,7 @@ import fdtsvaluemax
 import fdgetaddressh
 import fdgroupbystats
 import fdgroupbystatsTS
-import fdtablebackup
+import fdtableupdate
 
 # bat file:
 # python fdgettsvaluekisterurl.py http://nwm.kisters.de/nwm/current/short_range/tx/nwm.short_range.channel_rt.forecasts_per_section_vertical.csv.gz C:\10Data\TXDEM\KisterData kisterConfigST.txt kisterFilter.txt 60
@@ -334,11 +334,19 @@ class ClassOPR:
         self.DebugLevel = debugLevel 
 
     def getSDETableName(self, dSDETableNames, sName):
+        #..dSDETableNames is a dict returned by the apwrutils.Utils.getSDEBaseNameDict function
+        #..Try to find the full sde table name, using the sName (basename) first
+        # if not, try to get the sName.upper(), assuming the tablename got turned upcase on the sde instance.
         sReturn = sName
         try:
-            sReturn = dSDETableNames[sName]
+            if(sName in dSDETableNames):
+                sReturn = dSDETableNames[sName]
+            else:
+                sName = sName.upper()
+                sReturn = dSDETableNames[sName]
         except:
             pass
+
         return sReturn 
 
     def execute(self, pParamsR):
@@ -348,7 +356,20 @@ class ClassOPR:
             #arcpy.AddMessage("arcpy.Exists({})={}".format(pGDBOut, arcpy.Exists(pGDBOut)))
             #arcpy.AddMessage("pEditor={}".format(arcpy.da.Editor(pGDBOut)))
             arcpy.AddMessage("pAddressFile={}".format(pAddressFile))
-        dSDETableNames = apwrutils.Utils.getSDEBaseNameDict(pGDBOut) 
+        dSDETableNames = apwrutils.Utils.getSDEBaseNameDict(pGDBOut)
+        dTargetSDETableNames = apwrutils.Utils.getSDEBaseNameDict(pTargetGDB)    #..dict of List of tables, keyed on basetable name. 
+        pModelTable = self.getSDETableName(dTargetSDETableNames, flooddsconfig.TB_ForecastModel)
+        pModelTablePath = os.path.join(pTargetGDB, pModelTable)
+
+        #for sKey in dTargetSDETableNames:
+        #    arcpy.AddMessage("{} -> {}".format(sKey, dTargetSDETableNames[sKey]))
+        #lFields = arcpy.ListFields(pModelTablePath) 
+        #for i, fld in enumerate(lFields):
+        #    arcpy.AddMessage("{}. {}".format(i, fld.name))
+        
+        #arcpy.AddMessage("{}->{}".format(flooddsconfig.TB_ForecastModel, self.getSDETableName(dTargetSDETableNames, flooddsconfig.TB_ForecastModel)))
+
+        #sys.exit()  
         sMsg = apwrutils.Utils.getcmdargs(pParamsR) 
         arcpy.AddMessage(sMsg) 
         nLoops = 1
@@ -701,6 +722,13 @@ class ClassOPR:
                                 arcpy.CalculateField_management(pStatsOp.OutTB, "FHour", exprCalcHour, "PYTHON_9.3", codeblockGetHour)
                                 arcpy.AddMessage("  Completed writing TS stats into {}, ModelID={}, nRecs = {}".format(pStatsOp.OutTB, modelID, nStatRecs))
 
+                   
+                    try:
+                        if (pEditor!=None) and (pEditor.isEditing):
+                            pEditor.stopEditing(True)
+                    except:
+                        pass 
+
                     #..Updating/backup the 6 tables:
                     if(pTargetGDB!=None):
                         try:
@@ -714,17 +742,69 @@ class ClassOPR:
                         except:
                             pass
 
+                        ppEditor = None 
+                        try:
+                            arcpy.AddMessage(pTargetGDB) 
+                            ppEditor = arcpy.da.Editor(pTargetGDB)
+                            ppEditor.startEditing(False,False)
+                        except:
+                            sMsg = "{} {}".format(str(arcpy.GetMessages(2)), trace())
+                            arcpy.AddMessage(sMsg) 
+                        try:
+                            sDTFormat = "%m/%d/%Y %H:%M:%S"
+                            if("AM" in sDTMin) or ("PM" in sDTMin):
+                                sDTFormat = "%m/%d/%Y %H:%M:%S %p" 
+                                          
+                            ddt = datetime.datetime.strptime(sDTMin, sDTFormat) 
+                            dtStartHr = datetime.datetime(ddt.year, ddt.month, ddt.day, ddt.hour, 0, 0)
+                            dtEndHr = dtStartHr + datetime.timedelta(hours = flooddsconfig.DTShort) 
+                            timeStep = 1
+                            if(modelID==1):
+                                sModelName = "NWM - Short Term"                                  
+                            else:
+                                sModelName = "NWM - Mid Term"
+                                timeStep = 3
+                                dtEndHr = dtStartHr + datetime.timedelta(hours = flooddsconfig.DTMid)
+                            pass
+                            sWhere = "{} = {}".format(flooddsconfig.FN_ModeID, modelID) 
+                            pTableViewModel = "ModelViewModel"
+                            if(arcpy.Exists(pTableViewModel)): arcpy.Delete_management(pTableViewModel)
+                            arcpy.MakeTableView_management(pModelTablePath, pTableViewModel, sWhere) 
+                            nModelCnt = int(arcpy.GetCount_management(pTableViewModel)[0])
+                            if(nModelCnt>0):  
+                                #UpdateCursor
+                                with arcpy.da.UpdateCursor(pTableViewModel, [flooddsconfig.FN_ForecastTime, flooddsconfig.FN_ForecastTimeStr, flooddsconfig.FN_StartForDT, flooddsconfig.FN_EndForDT]) as upRows:
+                                    for upRow in upRows:
+                                        upRow[0] = sDTMin
+                                        upRow[1] = sDTMin
+                                        upRow[2] = dtStartHr
+                                        upRow[3] = dtEndHr
+                                        upRows.updateRow(upRow)
+
+                            else:
+                                with arcpy.da.InsertCursor(pTableViewModel,[flooddsconfig.FN_ForecastTime, flooddsconfig.FN_ModelName, flooddsconfig.FN_ForecastTimeStr, flooddsconfig.FN_StartForDT, flooddsconfig.FN_EndForDT, flooddsconfig.FN_TimeStep, flooddsconfig.FN_TimeUnits, flooddsconfig.FN_IsRegular, flooddsconfig.FN_ModeID]) as inRows:
+                                    inRow = (sDTMin, sModelName, sDTMin,  dtStartHr, dtEndHr, timeStep, "Hour", 1, modelID)
+                                    arcpy.AddMessage(inRows) 
+                                    inRows.insertRow(inRow) 
+
+                            #pModelTable = self.getSDETableName(dTargetSDETableNames, flooddsconfig.TB_ForecastModel)
+                            #with arcpy.da.UpdateCursor(pModelTablePath, [
+                        except:
+                            sMsg = "{} {}".format(str(arcpy.GetMessages(2)), trace())
+                            arcpy.AddMessage(sMsg) 
+
+                        finally:
+                            if(ppEditor!=None) and (ppEditor.isEditing):
+                                ppEditor.stopEditing(True) 
+
+
                     arcpy.AddMessage("({}) {} time(s) new data downloaded and processed in {}. {}".format(nLoops, nLoaded, apwrutils.Utils.GetDSMsg(dsProcess,""), datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))  
                 del pDataLoader
             except:
-                arcpy.AddMessage(trace())
+                sMsg = "{} {}".format(str(arcpy.GetMessages(2)), trace())
+                arcpy.AddMessage(sMsg) 
             finally:
-                try:
-                    if (pEditor!=None) and (pEditor.isEditing):
-                        pEditor.stopEditing(True)
-                except:
-                    pass 
-        
+                pass         
             nLoops = nLoops + 1
             if(nLoops >=nMaxRepeatCalls):
                 break

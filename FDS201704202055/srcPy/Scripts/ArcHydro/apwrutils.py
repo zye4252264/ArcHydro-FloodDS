@@ -1651,6 +1651,23 @@ class Utils:
         finally:
             arcpy.env.workspace = sWorkspace
 
+    @staticmethod
+    def getSDETableName(dSDETableNames, sName):
+        #..dSDETableNames is a dict returned by the apwrutils.Utils.getSDEBaseNameDict function
+        #..Try to find the full sde table name, using the sName (basename) first
+        # if not, try to get the sName.upper(), assuming the tablename got turned upcase on the sde instance.
+        sReturn = sName
+        try:
+            if(sName in dSDETableNames):
+                sReturn = dSDETableNames[sName]
+            else:
+                sName = sName.upper()
+                sReturn = dSDETableNames[sName]
+        except:
+            pass
+
+        return sReturn 
+
 class ApFields:
     Fields = dict()
     def GetApFieldByName(self, name):

@@ -53,6 +53,7 @@ FN_HCode = "HCode"
 FN_DH = "DH"
 
 FN_ModeID = "ModelID"
+FN_ModelName = "ModelName"
 FN_AddressCount="AddressCount"
 FN_TotPop10 = "TOTPOP10"
 FN_TOTHU10 = "TOTHU10"
@@ -61,6 +62,13 @@ FN_CountyID = "CountyID"
 FN_DistrictID ="DistrictID"
 FN_RegionID = "RegionID"
 FN_ForecastTime = "ForecastTime"
+
+FN_ForecastTimeStr = "ForecastTimeStr"
+FN_StartForDT = "StartForDT"
+FN_EndForDT = "EndForDT"
+FN_TimeStep = "TimeStep"
+FN_TimeUnits = "TimeUnits"
+FN_IsRegular = "IsRegular"
 
 TB_LogTable = "LogTable"
 FN_ParamName = "ParamName"
@@ -75,9 +83,12 @@ TB_DistIDImpact = "DistrictImpactTS"
 TB_DistIDImpactMax = "DistrictImpactTSMax"
 TB_RegIDImpact = "RegionImpactTS"
 TB_RegIDImpactMax = "RegionImpactTSMax"
-
+TB_ForecastModel = "ForecastModel"
 pScratchWorkspace = arcpy.env.scratchGDB    # "in_memory"     #"%scratchworkspace%"    #"in_memory"    #arcpy.env.scratchGDB         #"%scratchworkspace%"
 pScratchFolder =  arcpy.env.scratchFolder   #"%scratchfolder%"  "%scratchfolder%"      #
+
+DTShort = 15
+DTMid = 240 
 
 class ConfMatch:
     pNone = "None"
